@@ -1,0 +1,35 @@
+// specifying that the table should be tab-delimited and accept NA or ""
+// for unknown data
+@sep TAB
+@na_values NA
+@empty_values "" NULL
+@fixed
+
+// rules for each column
+sample: is_string() && !is_empty() && !is_missing()
+replicate: is_numeric() && !is_empty() && !is_missing()
+date_purchased: is_date() && is_date_format("[2020-02-10]")
+date_expiration: is_date() || is_missing() || is_empty()
+average_cycle_threshold: is_numeric() && !is_empty() && !is_missing()
+copies_per_mL: is_numeric() || is_empty() || is_missing()
+primer_asset_file: is('REDACTED') || is_string()
+probe_asset_file: is('REDACTED') || is_string()
+qPCR_cycle_conditions: is_string() || is_empty() || is_missing()
+processing_plant_state: is_string() && !any(unaccepted_states) && !is_empty() && !is_missing()
+positive_for_HPAI: is_bool() && !is_empty() && !is_missing()
+SRA_bioproject: is_string() || is_empty() || is_missing()
+SRA_accession: is_string() || is_empty() || is_missing()
+contributors: is_string() && !is_empty() && !is_missing()
+date_contributed: is_date() && is_date_format("[2020-02-10]") && !is_empty() && !is_missing()
+
+// YAML formatted specification of the states that are currently not accepted
+---
+unaccepted_states:
+    - AK
+    - AR
+    - GA
+    - LA
+    - MS
+    - ND
+    - SC
+    - WV

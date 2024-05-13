@@ -11,8 +11,7 @@ import os
 from pathlib import Path
 
 import polars as pl
-
-from .normalize import remove_duplicate_rows, validate_asset_files
+from normalize import remove_duplicate_rows, validate_asset_files
 
 
 def parse_command_line_args() -> argparse.Namespace:
@@ -47,13 +46,11 @@ async def main() -> None:
 
     # make sure the input table path points to a file that exists
     assert os.path.isfile(
-        args.input_table_path
-    ), f"The provided file {args.input_table_path} does not exist."
+        args.input_table
+    ), f"The provided file {args.input_table} does not exist."
 
-    # scan in the TSV and strip leading and trailing whitespace from every entry
-    table_df = pl.scan_csv(args.input_table_path, separator="\t").select(
-        pl.all().str.strip()
-    )
+    # scan in the TSV
+    table_df = pl.scan_csv(args.input_table, separator="\t")
 
     # make sure all asset files are present
     await validate_asset_files(table_df, args.assets_dir)
