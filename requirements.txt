@@ -1,7 +1,6 @@
 annotated-types==0.6.0
 nodeenv==1.8.0
 polars==0.20.25
-pydantic==2.7.1
 pydantic-core==2.18.2
 pyright==1.1.362
 ruff==0.4.4
