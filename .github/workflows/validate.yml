@@ -8,6 +8,7 @@ on:
             - main
     push:
         branches:
+            - main
             - proposals
 
 jobs:
@@ -42,5 +43,5 @@ jobs:
             - name: Check Test Results
               if: ${{ steps.run-application-tests.outcome != 'success' }}
               run: |
-                  echo "Application tests failed. Pull request cannot be merged."
+                  echo "DETECTION_RESULTS.tsv tests failed. Pull request cannot be merged. Please double check the results from this GitHub workflow run to see which values must be corrected."
                   exit 1
