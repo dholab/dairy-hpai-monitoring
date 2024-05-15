@@ -11,7 +11,7 @@ This repository is intended for dairy samples only. Other sample types are outsi
 ### Extracting HPAI RNA from Dairy Products
 
 #### Milk and Cream
-We have published an HPAI RNA extraction protocol tested on milk and cream on protocols.io: [protocol](dx.doi.org/10.17504/protocols.io.n2bvjn6obgk5/v1)
+We have published an HPAI RNA extraction protocol tested on milk and cream on protocols.io: [protocol](https://www.protocols.io/view/rna-extraction-from-milk-for-hpai-surveillance-dczp2x5n.html)
 
 ## Metadata Stewardship
 
@@ -23,11 +23,11 @@ Because the following states have less than three dairy processing plants, to av
 
 ### Naming Conventions
 
-In the “sample_name” column (or any other column) DO NOT include:
-Geolocation information below state level (or state level info from one of the states specifically mentioned under Geolocation Data)
-Any reference to the brand of dairy product tested
-Any reference to the type of dairy product tested (this is to protect dairy producers that may be the only location in their state to process a specific product)
-Any code (such as the IMS code) that can be used to identify a specific brand, product, or location
+In the “sample” column, "carton" column (or any other column) DO NOT include:
+* Geolocation information below state level (or state level info from one of the states specifically mentioned under Geolocation Data)
+* Any reference to the brand of dairy product tested
+* Any reference to the type of dairy product tested (this is to protect dairy producers that may be the only location in their state to process a specific product)
+* Any code (such as the IMS code) that can be used to identify a specific brand, product, or location
 
 ## Data Submission
 
