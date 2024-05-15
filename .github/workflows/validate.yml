@@ -26,10 +26,12 @@ jobs:
 
             - name: Install Dependencies
               run: |
-                  go install github.com/danielecook/still@latest
+                  git clone github.com/danielecook/still.git
 
             - name: Build Go Application
-              run: go build .
+              run: |
+                  cd still
+                  go build still
 
             - name: Run Application Tests
               run: |
