@@ -27,12 +27,12 @@ jobs:
               run: |
                   pip install uv
                   uv venv
-                  source venv/bin/activate
+                  source .venv/bin/activate
                   uv pip install -r requirements.txt
 
             - name: Normalize Data
               run: |
-                  source venv/bin/activate
+                  source .venv/bin/activate
                   python3 scripts/__main__.py \
                   --input_table DETECTION_RESULTS.tsv \
                   --assets_dir assets/
