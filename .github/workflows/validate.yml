@@ -1,0 +1,40 @@
+# .github/workflows/validate.yml
+
+name: Still Validation
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build-and-test:
+        name: Build and Test Go Application
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Install Go
+              uses: actions/setup-go@v3
+              with:
+                  go-version: 1.20.x
+
+            - name: Install Dependencies
+              run: |
+                  go install github.com/danielecook/still@latest
+
+            - name: Build Go Application
+              run: go build .
+
+            - name: Run Application Tests
+              run: |
+                  ./still validate assets/still.schema DETECTION_RESULTS.tsv
+              continue-on-error: true
+
+            - name: Check Test Results
+              if: ${{ steps.run-application-tests.outcome != 'success' }}
+              run: |
+                  echo "Application tests failed. Pull request cannot be merged."
+                  exit 1
