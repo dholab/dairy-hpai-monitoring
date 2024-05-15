@@ -6,10 +6,16 @@ on:
     pull_request:
         branches:
             - main
+        paths:
+            - DETECTION_RESULTS.tsv
+            - validate.yml
     push:
         branches:
             - main
             - proposals
+        paths:
+            - DETECTION_RESULTS.tsv
+            - validate.yml
 
 jobs:
     build-and-test:

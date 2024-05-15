@@ -8,6 +8,7 @@ on:
             - main
         paths:
             - DETECTION_RESULTS.tsv
+            - normalize.yml
 
 jobs:
     normalize-data:
