@@ -36,7 +36,7 @@ jobs:
 
             - name: Run Application Tests
               run: |
-                  ./still validate assets/still.schema DETECTION_RESULTS.tsv
+                  ./still/still validate assets/still.schema DETECTION_RESULTS.tsv
               continue-on-error: true
 
             - name: Check Test Results
