@@ -14,6 +14,24 @@ import polars as pl
 from normalize import remove_duplicate_rows, validate_asset_files
 
 
+
+GIT_MILK_BANNER = r"""
+                ___                              ___   ___                        
+          .-.  (   )                       .-.  (   ) (   )           .---.       
+  .--.   ( __)  | |_        ___ .-. .-.   ( __)  | |   | |   ___     /  _   \    
+ /    \  (''") (   __)     (   )   '   \  (''")  | |   | |  (   )   | |   `. .    
+;  ,-. '  | |   | |         |  .-.  .-. ;  | |   | |   | |  ' /    (___)   | |    
+| |  | |  | |   | | ___     | |  | |  | |  | |   | |   | |,' /          .-'_/     
+| |  | |  | |   | |(   )    | |  | |  | |  | |   | |   | .  '.          | |       
+| |  | |  | |   | | | |     | |  | |  | |  | |   | |   | | `. \         |_|       
+| '  | |  | |   | ' | |     | |  | |  | |  | |   | |   | |   \ \                  
+'  `-' |  | |   ' `-' ;     | |  | |  | |  | |   | |   | |    \ .       .-.       
+ `.__. | (___)   `.__.     (___)(___)(___)(___) (___) (___ ) (___)     (   )      
+ ( `-' ;                                                                `-'       
+  `.__.                                                                           
+"""
+
+
 def parse_command_line_args() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser()
@@ -63,4 +81,5 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
+    print(GIT_MILK_BANNER)
     asyncio.run(main())
