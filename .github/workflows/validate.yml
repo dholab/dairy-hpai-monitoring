@@ -38,10 +38,10 @@ jobs:
             - name: Test Data Normalization
               run: |
                   ./still/still validate assets/still.schema DETECTION_RESULTS.tsv
-              continue-on-error: true
+              continue-on-error: false
 
-            - name: Check Test Results
-              if: ${{ steps.run-application-tests.outcome != 'success' }}
-              run: |
-                  echo "DETECTION_RESULTS.tsv tests failed. Pull request cannot be merged. Please double check the results from this GitHub workflow run to see which values must be corrected."
-                  exit 1
+            # - name: Check Test Results
+            #   if: ${{ steps.run-application-tests.outcome != 'success' }}
+            #   run: |
+            #       echo "DETECTION_RESULTS.tsv tests failed. Pull request cannot be merged. Please double check the results from this GitHub workflow run to see which values must be corrected."
+            #       exit 1
