@@ -1,0 +1,46 @@
+# .github/workflows/weekly-release.yml
+
+name: Weekly Release
+
+on:
+    schedule:
+        - cron: "0 0 * * 0" # Runs every Sunday at 00:00 UTC
+    pull_request:
+        paths:
+            - "results.tsv"
+    push:
+        branches:
+            - main
+        paths:
+            - "results.tsv"
+
+jobs:
+    create-release:
+        name: Create Weekly Release
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Get current date
+              id: date
+              run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+            - name: Check for file changes
+              id: changes
+              uses: tj-actions/verify-changed-files@v13
+              with:
+                  files: "results.tsv"
+
+            - name: Create Release
+              if: steps.changes.outputs.file_changed == 'true'
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: weekly-${{ steps.date.outputs.date }}
+                  release_name: Weekly Data Release ${{ steps.date.outputs.date }}
+                  draft: false
+                  prerelease: false
