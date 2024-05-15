@@ -8,7 +8,7 @@ For ease of use, a template tsv file is provided here: [template file](assets/pr
 
 Required columns are in bold.
 
-**sample** - An identifier for the sample. This should contain no sensitive information about the producer, company, or brand. When combined with the replicate, it must form a unique value in the table. For example, a lab could sample milk from store 1 ("MILK1") and milk from store 2 ("MILK2"). These are different products, therefore different samples.  
+**sample** - An identifier for the sample. The sample is what you have tested or sequenced. Multiple samples can come from the same carton (see carton below). Sample names may be re-used only if the primer_asset_file or probe_asset_file values are not the same as the previous instance of that sample name (for samples tested with multiple assays). The sample column should not contain sensitive information about the producer, company, or brand.   
 
 carton - A de-identified code for each individual unit of dairy product obtained (for example, each milk carton) that may be sampled from multiple times. This code allows multiple sample rows to be linked to the same de-identified starting dairy product unit/carton. DO NOT use any code actually on the product that could be used to identify it. We suggest a naming scheme of "submitter_carton_####". 
 
