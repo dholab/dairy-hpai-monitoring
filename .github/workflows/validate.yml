@@ -1,0 +1,47 @@
+# .github/workflows/validate.yml
+
+name: Still Validation
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - DETECTION_RESULTS.tsv
+            - validate.yml
+    push:
+        branches:
+            - main
+            - proposals
+        paths:
+            - DETECTION_RESULTS.tsv
+            - validate.yml
+
+jobs:
+    build-and-test:
+        name: Compile still with go build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Install Go
+              uses: actions/setup-go@v3
+              with:
+                  go-version: 1.20.x
+
+            - name: Install Dependencies
+              run: |
+                  git clone https://github.com/danielecook/still.git
+
+            - name: Build Go Application
+              run: |
+                  cd still
+                  go build .
+                  cd ..
+
+            - name: Test Data Normalization
+              run: |
+                  ./still/still validate assets/still.schema DETECTION_RESULTS.tsv
+              continue-on-error: false
