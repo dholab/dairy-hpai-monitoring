@@ -35,7 +35,7 @@ jobs:
                   go build .
                   cd ..
 
-            - name: Run Application Tests
+            - name: Test Data Normalization
               run: |
                   ./still/still validate assets/still.schema DETECTION_RESULTS.tsv
               continue-on-error: true
