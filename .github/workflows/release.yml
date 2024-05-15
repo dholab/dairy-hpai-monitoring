@@ -7,12 +7,14 @@ on:
         - cron: "0 0 * * 0" # Runs every Sunday at 00:00 UTC
     pull_request:
         paths:
-            - "results.tsv"
+            - "DETECTION_RESULTS.tsv"
+            - "release.yml"
     push:
         branches:
             - main
         paths:
-            - "results.tsv"
+            - "DETECTION_RESULTS.tsv"
+            - "release.yml"
 
 jobs:
     create-release:
@@ -31,7 +33,7 @@ jobs:
               id: changes
               uses: tj-actions/verify-changed-files@v13
               with:
-                  files: "results.tsv"
+                  files: "DETECTION_RESULTS.tsv"
 
             - name: Create Release
               if: steps.changes.outputs.file_changed == 'true'
