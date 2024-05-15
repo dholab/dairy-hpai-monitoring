@@ -31,7 +31,8 @@ jobs:
             - name: Build Go Application
               run: |
                   cd still
-                  go build still
+                  go build .
+                  cd ..
 
             - name: Run Application Tests
               run: |
