@@ -26,7 +26,7 @@ jobs:
 
             - name: Install Dependencies
               run: |
-                  git clone github.com/danielecook/still.git
+                  git clone https://github.com/danielecook/still.git
 
             - name: Build Go Application
               run: |
