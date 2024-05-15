@@ -10,7 +10,7 @@ Required columns are in bold.
 
 **sample** - An identifier for the sample. This should contain no sensitive information about the producer, company, or brand. When combined with the replicate, it must form a unique value in the table. For example, a lab could sample milk from store 1 ("MILK1") and milk from store 2 ("MILK2"). These are different products, therefore different samples.  
 
-carton_code - A code assigned to each individual unit of dairy product obtained (for example, each milk carton) that may be sampled from multiple times. This code allows multiple sample rows to be linked to the same de-identified starting dairy product unit/carton. We suggest a naming scheme of "submitter_carton_####". 
+carton - A de-identified code for each individual unit of dairy product obtained (for example, each milk carton) that may be sampled from multiple times. This code allows multiple sample rows to be linked to the same de-identified starting dairy product unit/carton. DO NOT use any code actually on the product that could be used to identify it. We suggest a naming scheme of "submitter_carton_####". 
 
 **date_purchased** - The date the dairy product was purchased from a vendor or store in the format YYYY-MM-DD. An example is “2024-04-24”.
 
