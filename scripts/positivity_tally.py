@@ -89,7 +89,7 @@ def main() -> None:
     sorted_results_df = results_df.sort_values(by="Processing Plant State")
 
     ## Save sorted_results_df as a tsv file
-    sorted_results_df.to_csv(output_path, sep="\t", index=False)
+    sorted_results_df.to_csv(output_path, sep="\t", index=False, float_format="%.01g")
 
 
 if __name__ == "__main__":
