@@ -8,8 +8,8 @@ on:
             - main
         paths:
             - DETECTION_RESULTS.tsv
-            - positivity_tally.tsv
-            - generate_tally.yml
+            - assets/positivity_tally.tsv
+            - .github/workflows/generate_tally.yml
 
 jobs:
     generate-tally:
