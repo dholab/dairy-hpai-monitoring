@@ -6,6 +6,21 @@ HPAI (high-pathogenic avian influenza) RNA has been detected in consumer dairy p
 
 ## Positivity Tally by State
 
+Processing Plant State  |  Negative Cartons  |  Positive Cartons  |  Total Cartons  |  As of
+------------------------|--------------------|--------------------|-----------------|------------
+CO                      |  1                 |  2                 |  3              |  2024-05-02
+IA                      |  5                 |  0                 |  5              |  2024-04-24
+IN                      |  1                 |  0                 |  1              |  2024-05-02
+KY                      |  0                 |  1                 |  1              |  2024-05-02
+MI                      |  0                 |  1                 |  1              |  2024-05-02
+MN                      |  2                 |  0                 |  2              |  2024-04-24
+NY                      |  1                 |  0                 |  1              |  2024-05-02
+OH                      |  1                 |  0                 |  1              |  2024-05-02
+TX                      |  0                 |  1                 |  1              |  2024-05-02
+UT                      |  1                 |  0                 |  1              |  2024-05-02
+VA                      |  1                 |  0                 |  1              |  2024-05-02
+WI                      |  6                 |  0                 |  6              |  2024-04-26
+
 ## Sampling Dairy Products for HPAI RNA
 
 Dairy products can be easily obtained from grocery stores and/or other vendors. All dairy products registered on the [FDA Interstate Milk Shippers List](https://www.fda.gov/food/federalstate-food-programs/interstate-milk-shippers-list#rules) have an Interstate Milk Shippers (IMS) code that can be used to trace each unit back to the dairy plant where it was processed. IMS codes consist of a two letter state code and a four letter plant code separated by a hyphen. This code, used in tandem with the website [whereismymilkfrom.com](https://www.whereismymilkfrom.com), can help inform sampling strategy. While IMS codes identify the exact locations of specific dairy processing plants, it is mandatory that only state-level information is shared on this repository (see Metadata Stewardship).
