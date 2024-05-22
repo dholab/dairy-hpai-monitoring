@@ -14,7 +14,6 @@ import polars as pl
 from normalize import remove_duplicate_rows, validate_asset_files
 
 
-
 GIT_MILK_BANNER = r"""
                 ___                              ___   ___                        
           .-.  (   )                       .-.  (   ) (   )           .---.       
