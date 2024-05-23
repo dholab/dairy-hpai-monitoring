@@ -4,6 +4,7 @@
 
 HPAI (high-pathogenic avian influenza) RNA has been detected in consumer dairy products in the United States. Many labs around the country have been using these products to monitor the extent of the ongoing H5N1 outbreak in dairy cattle. Due to the dual threat this outbreak poses to public health and industry, it is imperative that HPAI positivity data for dairy products is shared in both a transparent and responsible manner. The purpose of this repository is to gather and make available dairy product HPAI PCR and sequencing data to coordinate monitoring efforts while also setting a standard for sensitive metadata stewardship.
 
+To submit results of your own, read over our [proposal instructions](docs/proposal_instructions.md) and then open [a new issue](https://github.com/dholab/dairy-hpai-monitoring/issues/new).
 ## Table of Contents
 
 -   [Positivity Tally by State](#positivity-tally-by-state)
