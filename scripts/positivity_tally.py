@@ -18,6 +18,13 @@ def count_unique_by_condition(df, condition):
     unique_counts.columns = ["processing_plant_state", f"Unique_Counts_{condition}"]
     return unique_counts
 
+def count_unique_cartons(df):
+    unique_counts = (
+        df.groupby("processing_plant_state")["carton"].nunique().reset_index()
+    )
+    unique_counts.columns = ["processing_plant_state", "Unique_Counts_Total"]
+    return unique_counts
+
 
 def main() -> None:
     """
@@ -37,33 +44,30 @@ def main() -> None:
     columns_to_convert = ["positive_for_HPAI", "processing_plant_state", "carton"]
     df[columns_to_convert] = df[columns_to_convert].astype(str)
 
-    ## Create a results dataframe
-    results_df = pd.DataFrame(columns=["A", "B", "C", "D"])
-
     ## Count for True
     true_counts = count_unique_by_condition(df, "True")
 
-    ## Count for False
-    false_counts = count_unique_by_condition(df, "False")
+    ## Count for Total
+    total_counts = count_unique_cartons(df)
 
     ## Merge the results into the results dataframe
     results_df = pd.merge(
-        false_counts, true_counts, on="processing_plant_state", how="outer"
+        total_counts, true_counts, on="processing_plant_state", how="outer"
     ).fillna(0)
 
     ## Rename the columns to match the required format
     results_df.columns = [
         "Processing Plant State",
-        "Negative Cartons",
+        "Total Cartons",
         "Positive Cartons",
     ]
 
-    ## Calculate column "Total Cartons" as the sum of columns "Negative Cartons" and "Positive Cartons"
-    results_df["Total Cartons"] = (
-        results_df["Negative Cartons"] + results_df["Positive Cartons"]
+    ## Calculate column "Negative Cartons" as the difference of columns "Total Cartons" and "Positive Cartons"
+    results_df["Negative Cartons"] = (
+        results_df["Total Cartons"] - results_df["Positive Cartons"]
     )
 
-    ## Find the latest date for each unique string in column '2'
+    ## Find the latest date for each unique string in column "date_purchased"
     latest_dates = (
         df.groupby("processing_plant_state")["date_purchased"].max().reset_index()
     )
