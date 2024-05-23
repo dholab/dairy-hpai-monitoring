@@ -32,6 +32,8 @@ carton - A de-identified code for each individual unit of dairy product obtained
 
 date_expiration - The expiration date listed (if applicable) on the dairy product in the format YYYY-MM-DD. An example is “2024-03-23”.
 
+assay - The kind of assay used to determine whether a product was positive. Currently, we allow qPCR, dPCR, empty, or NA in this column, but feel free to open a GitHub issue if you'd like us to support additional values.
+
 average_cycle_threshold - The cycle threshold value of the sample in a qPCR assay. This is the number of cycles performed before a positive signal is detected by the instrument. Format as a number with decimal points. An example is "27.3". If the sample is negative, insert "NA".
 
 average_copies_per_uL - A calculated value of qPCR targets per uL of sample added to the reaction. This should be calculated from the cycle threshold value compared to a standard curve. This value is optional. Round to nearest whole number.
