@@ -1,8 +1,24 @@
 # Instructions for Proposals to Add New HPAI Detections to this repository
 
+## GitHub Proposal Instructions
+
+This repo follows [the open-source proposal model used to designate SARS-CoV-2 lineages](https://github.com/cov-lineages/pango-designation), which involves proposing updates through GitHub issues and pull requests.
+
+For users who are less familiar with git and GitHub, we recommend you fill your results into the [proposal template](../assets/proposal_template.tsv) and open an issue in [the repo's Issues section](https://github.com/dholab/dairy-hpai-monitoring/issues). The maintainers will then review the issue. If your results pass review, they will be added to the proposals branch of the repo, run through our automated tests, and merged into the main branch. Eventually, these new results will be included in an official release.
+
+For users who are familiar with git and open source collaboration, we recommend the following steps to add data our [line list](../DETECTION_RESULTS.tsv):
+
+1. Clone or fork this resository.
+2. `git checkout` the proposals branch.
+3. Add rows with your results directly to the [line list](../DETECTION_RESULTS.tsv).
+4. `git commit` and push your changes to the proposal branch.
+5. Open a pull request (PR) to have your proposed additions added to the main branch.
+
+On pull request, a series of automated GitHub workflows will run that validate and normalize your PR, as well as regenerate the formatted README file. If all of these workflows pass, a repo maintainer will review your PR and merge if everything looks right.
+
 ## Proposal template file
 
-For ease of use, a template tsv file is provided here: [template file](../assets/proposal_template.tsv). 
+For ease of use, a template tsv file is provided here: [template file](../assets/proposal_template.tsv).
 
 ## Column Descriptions
 
