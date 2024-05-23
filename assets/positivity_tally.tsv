@@ -1,13 +1,20 @@
-Processing Plant State	Negative Cartons	Positive Cartons	Total Cartons	Latest Date Sampled
-CO	1	2	3	2024-05-02
+Processing Plant State	Total Cartons	Positive Cartons	Negative Cartons	Latest Date Sampled
+CA	1	0	1	2024-05-20
+CO	5	4	1	2024-05-20
+FL	1	0	1	2024-05-20
 IA	5	0	5	2024-04-24
-IN	1	0	1	2024-05-02
-KY	0	1	1	2024-05-02
-MI	0	1	1	2024-05-02
+ID	1	0	1	2024-05-20
+IN	2	1	1	2024-05-20
+KS	1	0	1	2024-05-20
+KY	2	1	1	2024-05-20
+MI	5	3	2	2024-05-20
 MN	2	0	2	2024-04-24
-NY	1	0	1	2024-05-02
-OH	1	0	1	2024-05-02
-TX	0	1	1	2024-05-02
+MO	1	0	1	2024-05-20
+NC	1	0	1	2024-05-20
+NY	2	0	2	2024-05-20
+OH	2	0	2	2024-05-20
+OR	1	0	1	2024-05-20
+TX	1	1	0	2024-05-02
 UT	1	0	1	2024-05-02
 VA	1	0	1	2024-05-02
-WI	6	0	6	2024-04-26
+WI	7	0	7	2024-05-20
