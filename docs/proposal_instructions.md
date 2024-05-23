@@ -2,7 +2,7 @@
 
 ## Proposal template file
 
-For ease of use, a template tsv file is provided here: [template file](assets/proposal_template.tsv).
+For ease of use, a template tsv file is provided here: [template file](../assets/proposal_template.tsv). 
 
 ## Column Descriptions
 
