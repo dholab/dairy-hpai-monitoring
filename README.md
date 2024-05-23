@@ -17,7 +17,7 @@ HPAI (high-pathogenic avian influenza) RNA has been detected in consumer dairy p
 
 ## Positivity Tally by State
 
-Processing Plant State  |  Negative Cartons  |  Positive Cartons  |  Total Cartons  |  As of
+Processing Plant State  |  Negative Cartons  |  Positive Cartons  |  Total Cartons  |  Latest Date Sampled
 ------------------------|--------------------|--------------------|-----------------|------------
 CO                      |  1                 |  2                 |  3              |  2024-05-02
 IA                      |  5                 |  0                 |  5              |  2024-04-24
