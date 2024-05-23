@@ -67,7 +67,7 @@ def main() -> None:
     latest_dates = (
         df.groupby("processing_plant_state")["date_purchased"].max().reset_index()
     )
-    latest_dates.columns = ["Processing Plant State", "As of"]
+    latest_dates.columns = ["Processing Plant State", "Latest Date Sampled"]
 
     ## Merge the latest dates into the "Results DataFrame"
     results_df = pd.merge(
@@ -81,7 +81,7 @@ def main() -> None:
             "Total Cartons",
             "Negative Cartons",
             "Positive Cartons",
-            "As of",
+            "Latest Date Sampled",
         ]
     ]
 
