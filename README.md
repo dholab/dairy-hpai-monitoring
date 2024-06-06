@@ -2,7 +2,7 @@
 
 [![Still Validation](https://github.com/dholab/dairy-hpai-monitoring/actions/workflows/validate.yml/badge.svg)](https://github.com/dholab/dairy-hpai-monitoring/actions/workflows/validate.yml)
 
-HPAI (high-pathogenic avian influenza) RNA has been detected in consumer dairy products in the United States. Many labs around the country have been using these products to monitor the extent of the ongoing H5N1 outbreak in dairy cattle. Due to the dual threat this outbreak poses to public health and industry, it is imperative that HPAI positivity data for dairy products is shared in both a transparent and responsible manner. The purpose of this repository is to gather and make available dairy product HPAI PCR and sequencing data to coordinate monitoring efforts while also setting a standard for sensitive metadata stewardship.
+HPAI (highly-pathogenic avian influenza) RNA has been detected in consumer dairy products in the United States. Many labs around the country have been using these products to monitor the extent of the ongoing H5N1 outbreak in dairy cattle. Due to the dual threat this outbreak poses to public health and industry, it is imperative that HPAI positivity data for dairy products is shared in both a transparent and responsible manner. The purpose of this repository is to gather and make available dairy product HPAI PCR and sequencing data to coordinate monitoring efforts while also setting a standard for sensitive metadata stewardship.
 
 To submit results of your own, read over our [proposal instructions](docs/proposal_instructions.md) and then open [a new issue](https://github.com/dholab/dairy-hpai-monitoring/issues/new).
 ## Table of Contents
@@ -11,6 +11,7 @@ To submit results of your own, read over our [proposal instructions](docs/propos
 -   [Sampling Dairy Products for HPAI RNA](#sampling-dairy-products-for-hpai-rna)
     -   [Extracting HPAI RNA from Dairy Products](#extracting-hpai-rna-from-dairy-products)
         -   [Milk and Cream](#milk-and-cream)
+    -   [Quantifying and Sequencing HPAI RNA from Dairy Products](#quantifying-and-sequencing-hpai-rna-from-dairy-products)
 -   [Metadata Stewardship](#metadata-stewardship)
     -   [Geolocation Data](#geolocation-data)
     -   [Naming Conventions](#naming-conventions)
@@ -51,6 +52,10 @@ This repository is intended for dairy samples only. Other sample types are outsi
 #### Milk and Cream
 
 We have published an HPAI RNA extraction protocol tested on milk and cream on protocols.io: [protocol](https://www.protocols.io/view/rna-extraction-from-milk-for-hpai-surveillance-dczp2x5n.html)
+
+### Quantifying and Sequencing HPAI RNA from Dairy Products
+
+We have published an HPAI 250bp tiled amplicon sequencing protocol compatible with Oxford Nanopore and Illumina sequencing platforms on protocols.io: [protocol](https://www.protocols.io/view/whole-genome-sequencing-of-h5n1-from-dairy-product-dev43e8w.html)
 
 ## Metadata Stewardship
 
