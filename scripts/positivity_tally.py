@@ -92,8 +92,15 @@ def main() -> None:
     ## Sort the results DataFrame alphabetically by state
     sorted_results_df = results_df.sort_values(by="Processing Plant State")
 
+    # Make all the numbers integers so we don't have to bother with float formatting
+    int_cols = ["Total Cartons",
+            "Negative Cartons",
+            "Positive Cartons",
+            ]
+    sorted_results_df[int_cols] = sorted_results_df[int_cols].astype(int)
+
     ## Save sorted_results_df as a tsv file
-    sorted_results_df.to_csv(output_path, sep="\t", index=False, float_format="%.01g")
+    sorted_results_df.to_csv(output_path, sep="\t", index=False)
 
 
 if __name__ == "__main__":
