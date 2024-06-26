@@ -5,6 +5,7 @@
 HPAI (highly-pathogenic avian influenza) RNA has been detected in consumer dairy products in the United States. Many labs around the country have been using these products to monitor the extent of the ongoing H5N1 outbreak in dairy cattle. Due to the dual threat this outbreak poses to public health and industry, it is imperative that HPAI positivity data for dairy products is shared in both a transparent and responsible manner. The purpose of this repository is to gather and make available dairy product HPAI PCR and sequencing data to coordinate monitoring efforts while also setting a standard for sensitive metadata stewardship.
 
 To submit results of your own, read over our [proposal instructions](docs/proposal_instructions.md) and then open [a new issue](https://github.com/dholab/dairy-hpai-monitoring/issues/new).
+
 ## Table of Contents
 
 - [Real-Time Monitoring of HPAI Detections in Dairy Products in the United States](#real-time-monitoring-of-hpai-detections-in-dairy-products-in-the-united-states)
@@ -21,28 +22,28 @@ To submit results of your own, read over our [proposal instructions](docs/propos
 
 ## Positivity Tally by State
 
-Processing Plant State  |  Total Cartons  |  Positive Cartons  |  Negative Cartons  |  Latest Date Sampled
-------------------------|-----------------|--------------------|--------------------|---------------------
-CA                      |  1              |  0                 |  1                 |  2024-05-20
-CO                      |  7              |  6                 |  1                 |  2024-06-18
-FL                      |  1              |  0                 |  1                 |  2024-05-20
-IA                      |  7              |  0                 |  7                 |  2024-06-18
-ID                      |  1              |  0                 |  1                 |  2024-05-20
-IL                      |  3              |  0                 |  3                 |  2024-06-18
-IN                      |  5              |  1                 |  4                 |  2024-06-18
-KS                      |  1              |  0                 |  1                 |  2024-05-20
-KY                      |  3              |  1                 |  2                 |  2024-06-18
-MI                      |  8              |  5                 |  3                 |  2024-06-18
-MN                      |  4              |  0                 |  4                 |  2024-06-18
-MO                      |  1              |  0                 |  1                 |  2024-05-20
-NC                      |  1              |  0                 |  1                 |  2024-05-20
-NY                      |  2              |  0                 |  2                 |  2024-05-20
-OH                      |  2              |  0                 |  2                 |  2024-05-20
-OR                      |  1              |  0                 |  1                 |  2024-05-20
-TX                      |  2              |  1                 |  1                 |  2024-06-05
-UT                      |  1              |  0                 |  1                 |  2024-05-02
-VA                      |  1              |  0                 |  1                 |  2024-05-02
-WI                      |  15             |  0                 |  2                 |  2024-06-18
+| Processing Plant State | Total Cartons | Positive Cartons | Negative Cartons | Latest Date Sampled |
+| ---------------------- | ------------- | ---------------- | ---------------- | ------------------- |
+| CA                     | 1             | 0                | 1                | 2024-05-20          |
+| CO                     | 7             | 6                | 1                | 2024-06-18          |
+| FL                     | 1             | 0                | 1                | 2024-05-20          |
+| IA                     | 7             | 0                | 7                | 2024-06-18          |
+| ID                     | 1             | 0                | 1                | 2024-05-20          |
+| IL                     | 3             | 0                | 3                | 2024-06-18          |
+| IN                     | 5             | 1                | 4                | 2024-06-18          |
+| KS                     | 1             | 0                | 1                | 2024-05-20          |
+| KY                     | 3             | 1                | 2                | 2024-06-18          |
+| MI                     | 8             | 5                | 3                | 2024-06-18          |
+| MN                     | 4             | 0                | 4                | 2024-06-18          |
+| MO                     | 1             | 0                | 1                | 2024-05-20          |
+| NC                     | 1             | 0                | 1                | 2024-05-20          |
+| NY                     | 2             | 0                | 2                | 2024-05-20          |
+| OH                     | 2             | 0                | 2                | 2024-05-20          |
+| OR                     | 1             | 0                | 1                | 2024-05-20          |
+| TX                     | 2             | 1                | 1                | 2024-06-05          |
+| UT                     | 1             | 0                | 1                | 2024-05-02          |
+| VA                     | 1             | 0                | 1                | 2024-05-02          |
+| WI                     | 15            | 0                | 15               | 2024-06-18          |
 
 ## Sampling Dairy Products for HPAI RNA
 
