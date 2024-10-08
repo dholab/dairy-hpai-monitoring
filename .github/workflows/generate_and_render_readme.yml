@@ -1,0 +1,100 @@
+# .github/workflows/generate_and_render_readme.yml
+
+name: Generate and Render README
+
+on:
+    pull_request:
+        branches:
+            - main
+        paths:
+            - DETECTION_RESULTS.tsv
+            - assets/positivity_tally.tsv
+            - .github/workflows/generate_tally.yml
+            - .github/workflows/generate_and_render_readme.yml
+            - .github/workflows/render_readme.yml
+            - scripts/splice_readme.py
+
+jobs:
+    generate-tally:
+        name: Generate Positivity Tally
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Install Dependencies
+              run: |
+                  pip install uv
+                  uv venv
+                  source .venv/bin/activate
+                  uv pip install -r requirements.txt
+
+            - name: Tally positive cartons per state
+              run: |
+                  source .venv/bin/activate
+                  python3 scripts/positivity_tally.py \
+                  DETECTION_RESULTS.tsv \
+                  assets/positivity_tally.tsv
+
+            - name: Commit positivity tally
+              if: success()
+              run: |
+                  git config --global user.name 'GitHub Actions Bot'
+                  git config --global user.email 'actions@github.com'
+                  git add assets/positivity_tally.tsv
+                  git fetch origin proposals
+                  git commit -m "Updating positivity tally"
+                  git push --force-with-lease origin HEAD:proposals
+    render-readme:
+        name: Render new README
+        needs: generate-tally
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
+            - name: Install Dependencies
+              run: |
+                  pip install uv
+                  uv venv
+                  source .venv/bin/activate
+                  uv pip install -r requirements.txt
+
+            - name: Generate Markdown Table
+              run: |
+                  source .venv/bin/activate
+                  python3 scripts/tsv_to_md.py \
+                  assets/positivity_tally.tsv \
+                  > assets/positivity_tally.md
+
+            - name: Splice Table into README
+              run: |
+                  source .venv/bin/activate
+                  python3 scripts/splice_readme.py
+
+            - name: Replace previous README
+              run: |
+                  rm README.md && \
+                  mv new_readme.md README.md
+
+            - name: Commit Updated README
+              if: success()
+              run: |
+                  git config --global user.name 'GitHub Actions Bot'
+                  git config --global user.email 'actions@github.com'
+                  git add README.md
+                  git fetch origin proposals
+                  git commit -m "Updated the README file"
+                  git push --force-with-lease origin HEAD:proposals
