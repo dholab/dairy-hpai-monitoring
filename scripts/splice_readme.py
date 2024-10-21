@@ -24,7 +24,7 @@ def parse_command_line_args() -> argparse.Namespace:
     Parse a couple named arguments from the command line
     """
     parser = argparse.ArgumentParser(
-        description="Space a table from one input markdown file into the README."
+        description="Space a table from one input markdown file into the README.",
     )
     parser.add_argument(
         "-r",
@@ -47,8 +47,10 @@ def parse_command_line_args() -> argparse.Namespace:
 
 
 def splice_readme_lines(
-    readme_lines: List[str], tally_lines: List[str], new_readme: TextIOWrapper
-):
+    readme_lines: list[str],
+    tally_lines: list[str],
+    new_readme: TextIOWrapper,
+) -> None:
     """
     Test a few conditions on each line to make sure the tally table is properly
     spliced into the readme.
@@ -79,10 +81,10 @@ def main() -> None:
     args = parse_command_line_args()
 
     # open the input readme and tally md file and collect the lines from each
-    with open(args.readme, "r", encoding="utf8") as readme_handle:
-        readme_lines = [line for line in readme_handle.readlines()]
-    with open(args.tally_file, "r", encoding="utf8") as tally_handle:
-        tally_lines = [line for line in tally_handle.readlines()]
+    with open(args.readme, encoding="utf8") as readme_handle:
+        readme_lines = list(readme_handle.readlines())
+    with open(args.tally_file, encoding="utf8") as tally_handle:
+        tally_lines = list(tally_handle.readlines())
 
     # open the new readme and handle splicing the table into the new readme
     with open("new_readme.md", "w", encoding="utf8") as new_readme:
