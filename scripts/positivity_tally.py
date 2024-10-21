@@ -100,7 +100,7 @@ def count_positive_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
         .select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
         .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
-        .rename({"len": "Positive Cartons"})
+        .rename({"carton": "Positive Cartons"})
     )
 
 
