@@ -1,106 +1,234 @@
 #!/usr/bin/env python3
 
 """
-Python Script to Generate the positivity_tally.tsv from DETECTION_RESULTS.tsv for display on Github.
+This script processes detection results for HPAI (Highly Pathogenic Avian Influenza)
+and generates a summary report.
+
+Usage:
+    python positivity_tally.py <input_file> <output_file>
+
+Arguments:
+    <input_file>: Path to the input TSV file containing detection results.
+    <output_file>: Path where the output TSV file will be saved.
+
+Input file format:
+    The input file should be a tab-separated values (TSV) file with the following columns:
+    - date_purchased: Date of purchase (will be converted to a date object)
+    - processing_plant_state: State where the processing plant is located
+    - carton: Carton identifier
+    - positive_for_HPAI: Boolean indicating whether the sample tested positive for HPAI
+
+Output:
+    The script will generate a TSV file with the following columns:
+    - Processing Plant State: State where the processing plant is located
+    - Total Cartons: Total number of unique cartons tested
+    - Positive Cartons: Number of unique cartons that tested positive for HPAI
+    - Negative Cartons: Number of unique cartons that tested negative for HPAI
+    - Latest Date Sampled: Most recent date when samples were taken for each state
+
+Required libraries:
+    - polars
+
+Example:
+    python positivity_tally.py input_data.tsv output_summary.tsv
 """
 
 import sys
 
-import pandas as pd
+import polars as pl
 
 
-## Function to count unique strings in column 'carton' by a specific condition in column 'positive_for_HPAI' and sum by column 'processing_plant_state'
-def count_unique_by_condition(df, condition):
-    filtered_df = df[df["positive_for_HPAI"] == condition]
-    unique_counts = (
-        filtered_df.groupby("processing_plant_state")["carton"].nunique().reset_index()
+def parse_input_results(detection_results: str) -> pl.LazyFrame:
+    """
+    Parse input results from a TSV file and apply transformations.
+
+    This function reads a TSV file containing detection results,
+    converts the date_purchased column to a date column, and
+    renames the processing_plant_state column.
+
+    Args:
+        detection_results (str): Path to the input TSV file.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the parsed and transformed data.
+    """
+    return (
+        pl.scan_csv(detection_results, separator="\t", infer_schema_length=1000)
+        .with_columns(
+            pl.col("date_purchased").str.to_date().alias("date_purchased"),
+        )
+        .rename({"processing_plant_state": "Processing Plant State"})
     )
-    unique_counts.columns = ["processing_plant_state", f"Unique_Counts_{condition}"]
-    return unique_counts
 
-def count_unique_cartons(df):
-    unique_counts = (
-        df.groupby("processing_plant_state")["carton"].nunique().reset_index()
+
+def tally_all_cartons(detections: pl.LazyFrame) -> pl.LazyFrame:
+    """
+    Tally all cartons in the detection results.
+
+    This function counts the total number of unique cartons for each processing plant state.
+
+    Args:
+        detections (pl.LazyFrame): A LazyFrame containing the detection results.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the total carton count for each state.
+    """
+    return (
+        detections.select("Processing Plant State", "carton")
+        .group_by("Processing Plant State")
+        .n_unique()
+        .rename({"carton": "Total Cartons"})
     )
-    unique_counts.columns = ["processing_plant_state", "Unique_Counts_Total"]
-    return unique_counts
+
+
+def count_positive_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
+    """
+    Count the number of positive HPAI detections for each processing plant state.
+
+    This function filters the detections for positive HPAI results,
+    counts the number of unique positive cartons for each state, and renames
+    the resulting column.
+
+    Args:
+        detections (pl.LazyFrame): A LazyFrame containing the detection results.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the positive carton count for each state.
+    """
+    return (
+        detections.filter(pl.col("positive_for_HPAI").eq(True))  # noqa: FBT003
+        .select("Processing Plant State", "carton")
+        .group_by("Processing Plant State")
+        .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
+        .rename({"carton": "Positive Cartons"})
+    )
+
+
+def count_negative_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
+    """
+    Count the number of negative HPAI detections for each processing plant state.
+
+    This function filters the detections for negative HPAI results,
+    counts the number of unique negative cartons for each state, and renames
+    the resulting column.
+
+    Args:
+        detections (pl.LazyFrame): A LazyFrame containing the detection results.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the negative carton count for each state.
+    """
+    return (
+        detections.filter(pl.col("positive_for_HPAI").eq(False))  # noqa: FBT003
+        .select("Processing Plant State", "carton")
+        .group_by("Processing Plant State")
+        .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
+        .rename({"carton": "Negative Cartons"})
+    )
+
+
+def find_latest_sampling_dates(detections: pl.LazyFrame) -> pl.LazyFrame:
+    """
+    Find the latest sampling dates for each processing plant state.
+
+    This function groups the detections by processing plant state,
+    finds the maximum (latest) date for each state, and renames
+    the result column.
+
+    Args:
+        detections (pl.LazyFrame): A LazyFrame containing the detection results.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the latest sampling date for each state.
+    """
+    return (
+        detections.select("Processing Plant State", "date_purchased")
+        .group_by("Processing Plant State")
+        .max()
+        .rename({"date_purchased": "Latest Date Sampled"})
+    )
+
+
+def generate_final_results(
+    total_tested: pl.LazyFrame,
+    negative_counts: pl.LazyFrame,
+    positive_counts: pl.LazyFrame,
+    latest_dates: pl.LazyFrame,
+) -> pl.LazyFrame:
+    """
+    Generate final results by joining different LazyFrames.
+
+    This function takes four LazyFrames containing different aspects of the
+    detection results and joins them together to create a final result set.
+    It also applies some additional transformations to the data.
+
+    Args:
+        total_tested (pl.LazyFrame): LazyFrame with total carton counts.
+        negative_counts (pl.LazyFrame): LazyFrame with negative detection counts.
+        positive_counts (pl.LazyFrame): LazyFrame with positive detection counts.
+        latest_dates (pl.LazyFrame): LazyFrame with latest sampling dates.
+
+    Returns:
+        pl.LazyFrame: A LazyFrame with the final combined results.
+    """
+    return (
+        total_tested.join(
+            positive_counts,
+            on="Processing Plant State",
+            how="left",
+            validate="1:1",
+        )
+        .join(
+            negative_counts,
+            on="Processing Plant State",
+            how="left",
+            validate="1:1",
+        )
+        .join(
+            latest_dates,
+            on="Processing Plant State",
+            how="left",
+            validate="1:1",
+        )
+        .fill_null(0)
+        .sort("Processing Plant State")
+    )
 
 
 def main() -> None:
     """
-    script entrypoint
+    Script entrypoint
     """
-
+    # pull input and output information from the command line
     detection_results = sys.argv[1]
     output_path = sys.argv[2]
 
-    ## Read in the DETECTION_RESULTS.tsv after pulling the latest version from github (https://github.com/dholab/dairy-hpai-monitoring)
-    df = pd.read_csv(detection_results, sep="\t")
+    # parse the input detection results
+    detections = parse_input_results(detection_results)
 
-    ## Convert the date column to datetime format
-    df["date_purchased"] = pd.to_datetime(df["date_purchased"])
+    # determine how many cartons were tested
+    total_tested = tally_all_cartons(detections)
 
-    ## Make sure needed columns are in string format
-    columns_to_convert = ["positive_for_HPAI", "processing_plant_state", "carton"]
-    df[columns_to_convert] = df[columns_to_convert].astype(str)
+    # count positive detections
+    positive_counts = count_positive_detections(detections)
 
-    ## Count for True
-    true_counts = count_unique_by_condition(df, "True")
+    # count negative detections
+    negative_counts = count_negative_detections(detections)
 
-    ## Count for Total
-    total_counts = count_unique_cartons(df)
+    # count the latest dates in which testing occurred for each state
+    latest_dates = find_latest_sampling_dates(detections)
 
-    ## Merge the results into the results dataframe
-    results_df = pd.merge(
-        total_counts, true_counts, on="processing_plant_state", how="outer"
-    ).fillna(0)
-
-    ## Rename the columns to match the required format
-    results_df.columns = [
-        "Processing Plant State",
-        "Total Cartons",
-        "Positive Cartons",
-    ]
-
-    ## Calculate column "Negative Cartons" as the difference of columns "Total Cartons" and "Positive Cartons"
-    results_df["Negative Cartons"] = (
-        results_df["Total Cartons"] - results_df["Positive Cartons"]
+    # use a series of left joins to generate the final results that will be written
+    # out to a TSV
+    final_results = generate_final_results(
+        total_tested,
+        positive_counts,
+        negative_counts,
+        latest_dates,
     )
 
-    ## Find the latest date for each unique string in column "date_purchased"
-    latest_dates = (
-        df.groupby("processing_plant_state")["date_purchased"].max().reset_index()
-    )
-    latest_dates.columns = ["Processing Plant State", "Latest Date Sampled"]
-
-    ## Merge the latest dates into the "Results DataFrame"
-    results_df = pd.merge(
-        results_df, latest_dates, on="Processing Plant State", how="left"
-    )
-
-    ## Rearrange columns
-    sorted_results_df = results_df[
-        [
-            "Processing Plant State",
-            "Total Cartons",
-            "Negative Cartons",
-            "Positive Cartons",
-            "Latest Date Sampled",
-        ]
-    ]
-
-    ## Sort the results DataFrame alphabetically by state
-    sorted_results_df = results_df.sort_values(by="Processing Plant State")
-
-    # Make all the numbers integers so we don't have to bother with float formatting
-    int_cols = ["Total Cartons",
-            "Negative Cartons",
-            "Positive Cartons",
-            ]
-    sorted_results_df[int_cols] = sorted_results_df[int_cols].astype(int)
-
-    ## Save sorted_results_df as a tsv file
-    sorted_results_df.to_csv(output_path, sep="\t", index=False)
+    # do the writing
+    final_results.collect().write_csv(output_path, separator="\t")
 
 
 if __name__ == "__main__":
