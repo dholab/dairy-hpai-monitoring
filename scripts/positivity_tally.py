@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This script processes detection results for HPAI (Highly Pathogenic Avian Influenza) and generates a summary report.
+This script processes detection results for HPAI (Highly Pathogenic Avian Influenza)
+and generates a summary report.
 
 Usage:
     python positivity_tally.py <input_file> <output_file>
@@ -20,9 +21,9 @@ Input file format:
 Output:
     The script will generate a TSV file with the following columns:
     - Processing Plant State: State where the processing plant is located
-    - Total Cartons: Total number of cartons tested
-    - Positive Cartons: Number of cartons that tested positive for HPAI
-    - Negative Cartons: Number of cartons that tested negative for HPAI
+    - Total Cartons: Total number of unique cartons tested
+    - Positive Cartons: Number of unique cartons that tested positive for HPAI
+    - Negative Cartons: Number of unique cartons that tested negative for HPAI
     - Latest Date Sampled: Most recent date when samples were taken for each state
 
 Required libraries:
@@ -64,7 +65,7 @@ def tally_all_cartons(detections: pl.LazyFrame) -> pl.LazyFrame:
     """
     Tally all cartons in the detection results.
 
-    This function counts the total number of cartons for each processing plant state.
+    This function counts the total number of unique cartons for each processing plant state.
 
     Args:
         detections (pl.LazyFrame): A LazyFrame containing the detection results.
@@ -75,7 +76,7 @@ def tally_all_cartons(detections: pl.LazyFrame) -> pl.LazyFrame:
     return (
         detections.select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
-        .len()
+        .n_unique()
         .rename({"len": "Total Cartons"})
     )
 
@@ -85,7 +86,7 @@ def count_positive_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
     Count the number of positive HPAI detections for each processing plant state.
 
     This function filters the detections for positive HPAI results,
-    counts the number of positive cartons for each state, and renames
+    counts the number of unique positive cartons for each state, and renames
     the resulting column.
 
     Args:
@@ -98,7 +99,7 @@ def count_positive_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
         detections.filter(pl.col("positive_for_HPAI").eq(True))  # noqa: FBT003
         .select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
-        .len()  # this should be changed to `.n_unique()` for unique cartons only
+        .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
         .rename({"len": "Positive Cartons"})
     )
 
@@ -108,7 +109,7 @@ def count_negative_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
     Count the number of negative HPAI detections for each processing plant state.
 
     This function filters the detections for negative HPAI results,
-    counts the number of negative cartons for each state, and renames
+    counts the number of unique negative cartons for each state, and renames
     the resulting column.
 
     Args:
@@ -121,7 +122,7 @@ def count_negative_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
         detections.filter(pl.col("positive_for_HPAI").eq(False))  # noqa: FBT003
         .select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
-        .len()  # this should be changed to `.n_unique()` for unique cartons only
+        .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
         .rename({"len": "Negative Cartons"})
     )
 
