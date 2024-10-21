@@ -227,7 +227,7 @@ def main() -> None:
     )
 
     # do the writing
-    final_results.sink_csv(output_path, separator="\t")
+    final_results.collect().write_csv(output_path, separator="\t")
 
 
 if __name__ == "__main__":
