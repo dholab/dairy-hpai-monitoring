@@ -3,9 +3,9 @@
 name: Generate and Render README
 
 on:
-    pull_request:
+    push:
         branches:
-            - main
+            - proposals
         paths:
             - DETECTION_RESULTS.tsv
             - assets/positivity_tally.tsv
