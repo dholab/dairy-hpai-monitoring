@@ -77,7 +77,7 @@ def tally_all_cartons(detections: pl.LazyFrame) -> pl.LazyFrame:
         detections.select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
         .n_unique()
-        .rename({"len": "Total Cartons"})
+        .rename({"carton": "Total Cartons"})
     )
 
 
@@ -123,7 +123,7 @@ def count_negative_detections(detections: pl.LazyFrame) -> pl.LazyFrame:
         .select("Processing Plant State", "carton")
         .group_by("Processing Plant State")
         .n_unique()  # this should be changed to `.n_unique()` for unique cartons only
-        .rename({"len": "Negative Cartons"})
+        .rename({"carton": "Negative Cartons"})
     )
 
 
