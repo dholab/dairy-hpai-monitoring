@@ -20,6 +20,9 @@ To submit results of your own, read over our [proposal instructions](docs/propos
     - [Naming Conventions](#naming-conventions)
   - [Data Submission](#data-submission)
 
+## Recent Results by State
+ 
+
 ## Positivity Tally by State
 
 Processing Plant State  |  Total Cartons  |  Negative Cartons  |  Positive Cartons  |  Latest Date Sampled
