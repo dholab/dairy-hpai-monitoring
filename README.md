@@ -35,7 +35,9 @@ MN                      |  1              |  1                 |  0             
 MO                      |  1              |  1                 |  0                 |  2024-12-17
 WI                      |  72             |  63                |  9                 |  2025-01-21
 
-## Positivity Tally by State
+## All-time Results by State
+
+Full results across the history of the project (24 April 2024-Present)
 
 Processing Plant State  |  Total Cartons  |  Negative Cartons  |  Positive Cartons  |  Latest Date Sampled
 ------------------------|-----------------|--------------------|--------------------|---------------------

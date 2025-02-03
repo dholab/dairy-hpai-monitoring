@@ -57,8 +57,8 @@ def splice_readme_lines(
     """
     ignore = False
     for line in readme_lines:
-        if line.startswith("## Positivity Tally by State"):
-            new_readme.write("## Positivity Tally by State\n\n")
+        if line.startswith("## All-time Results by State"):
+            new_readme.write("## All-time Results by State\n\nFull results across the history of the project (24 April 2024-Present)\n")
             for tally_line in tally_lines:
                 new_readme.write(f"{tally_line}")
             ignore = True
