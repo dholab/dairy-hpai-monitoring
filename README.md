@@ -20,7 +20,24 @@ To submit results of your own, read over our [proposal instructions](docs/propos
     - [Naming Conventions](#naming-conventions)
   - [Data Submission](#data-submission)
 
-## Positivity Tally by State
+## Recent Results by State
+
+Recent results in the 90 days preceding 31 January 2025
+
+Processing Plant State  |  Total Cartons  |  Negative Cartons  |  Positive Cartons  |  Latest Date Sampled
+------------------------|-----------------|--------------------|--------------------|---------------------
+CA                      |  6              |  1                 |  5                 |  2025-01-21
+CO                      |  5              |  5                 |  0                 |  2025-01-21
+IA                      |  2              |  1                 |  1                 |  2024-12-17
+IN                      |  1              |  1                 |  0                 |  2024-12-17
+MI                      |  7              |  7                 |  0                 |  2025-01-21
+MN                      |  1              |  1                 |  0                 |  2024-11-19
+MO                      |  1              |  1                 |  0                 |  2024-12-17
+WI                      |  72             |  63                |  9                 |  2025-01-21
+
+## All-time Results by State
+
+Full results across the history of the project (24 April 2024-Present)
 
 Processing Plant State  |  Total Cartons  |  Negative Cartons  |  Positive Cartons  |  Latest Date Sampled
 ------------------------|-----------------|--------------------|--------------------|---------------------

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-usage: splice_readme.py [-h] [-r README] [-f TALLY_FILE]
+usage: splice_recent.py [-h] [-r README] [-f TALLY_FILE]
 
 Space a table from one input markdown file into the README.
 
@@ -17,6 +17,7 @@ import argparse
 from io import TextIOWrapper
 from pathlib import Path
 from typing import List
+from datetime import datetime
 
 
 def parse_command_line_args() -> argparse.Namespace:
@@ -38,7 +39,7 @@ def parse_command_line_args() -> argparse.Namespace:
         "-f",
         "--tally_file",
         type=Path,
-        default=Path("assets/positivity_tally.md"),
+        default=Path("assets/recent_tally.md"),
         required=False,
         help="The file to be spliced into the readme.",
     )
@@ -55,15 +56,16 @@ def splice_readme_lines(
     Test a few conditions on each line to make sure the tally table is properly
     spliced into the readme.
     """
+    current_date = datetime.now().strftime('%d %B %Y')
     ignore = False
     for line in readme_lines:
-        if line.startswith("## All-time Results by State"):
-            new_readme.write("## All-time Results by State\n\nFull results across the history of the project (24 April 2024-Present)\n")
+        if line.startswith("## Recent Results by State"):
+            new_readme.write(f"## Recent Results by State\n\nRecent results in the 90 days preceding {current_date}\n\n")
             for tally_line in tally_lines:
                 new_readme.write(f"{tally_line}")
             ignore = True
 
-        if line.startswith("## Sampling Dairy Products for HPAI RNA"):
+        if line.startswith("## Positivity Tally by State"):
             new_readme.write("\n")
             ignore = False
 

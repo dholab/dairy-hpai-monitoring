@@ -5,10 +5,11 @@ This script processes detection results for HPAI (Highly Pathogenic Avian Influe
 and generates a summary report.
 
 Usage:
-    python positivity_tally.py <input_file> <output_file>
+    python positivity_tally.py <input_file> -d <days_previous> <output_file>
 
 Arguments:
     <input_file>: Path to the input TSV file containing detection results.
+    <days_previous>: Integer number of days before today over which to report the results
     <output_file>: Path where the output TSV file will be saved.
 
 Input file format:
@@ -30,10 +31,12 @@ Required libraries:
     - polars
 
 Example:
-    python positivity_tally.py input_data.tsv output_summary.tsv
+    python positivity_tally.py --days_previous 60 input_data.tsv output_summary.tsv
 """
 
 import sys
+from datetime import datetime, timedelta
+import argparse
 
 import polars as pl
 
@@ -148,6 +151,10 @@ def find_latest_sampling_dates(detections: pl.LazyFrame) -> pl.LazyFrame:
         .rename({"date_purchased": "Latest Date Sampled"})
     )
 
+def apply_date_cutoff(detections, days_previous):
+    cutoff_date = datetime.now() - timedelta(days=days_previous)
+    # filter df by earliest date
+    return detections.filter(pl.col("date_purchased") > cutoff_date)
 
 def generate_final_results(
     total_tested: pl.LazyFrame,
@@ -200,11 +207,26 @@ def main() -> None:
     Script entrypoint
     """
     # pull input and output information from the command line
-    detection_results = sys.argv[1]
-    output_path = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', '--days_previous', default=None, type=int, required=False, help="Integer number of days before today over which to report the results")
+    parser.add_argument('input_file', help="Path to the input TSV file containing detection results.")
+    parser.add_argument('output_file', help="Path where the output TSV file will be saved.")
+
+    args = parser.parse_args()
+
+    detection_results = args.input_file
+    days_previous = args.days_previous
+    output_path = args.output_file
 
     # parse the input detection results
     detections = parse_input_results(detection_results)
+
+    # apply date filter to the df if one is provided as input
+    if days_previous is not None:
+        detections = apply_date_cutoff(detections, days_previous)
+    # if no date filter is provided, continue with the entire input df
+    else:
+        detections = detections
 
     # determine how many cartons were tested
     total_tested = tally_all_cartons(detections)
